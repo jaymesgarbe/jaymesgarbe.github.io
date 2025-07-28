@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Jaymes Garbe: Song of the Week</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="sidenav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pics.html">Photography</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="songs.html">Song of the Week</a></li>
+        </ul>
+      </div>
+      <div id="main">
+        <h1>Song of the Week</h1>
+        <h2
+          style="font-size: 30px; margin-left: 10px; margin-right: 10px"
+          id="title"
+        >
+          Week 89: Connect - Vampire Weekend
+        </h2>
+        <div id="buttonPopup" hidden>
+          <div id="sotwOverlay"></div>
+          <div id="sotwPopup">
+            <div class="popupcontent">
+              <br />
+              <h1>Happy Anniversary to SotW!!!</h1>
+              <br />
+              <p id="popupWords">
+                It's the 52nd week of Song of the Week, which means it has now
+                been a whole year since I started this! This is truly just a
+                passion project for me that I admittedly haven't put a ton of
+                effort into otherwise. I have loved making this more interactive
+                and I have some more plans that I just do not have time to
+                execute right now. For now, enjoy this confetti and an embedded
+                spotify playlist (it took me half of the day to code it into the
+                site lol). Thank you all for your earnest participation in this
+                little project, I hope you have taken something away from this
+                at the very least. Anyways, enjoy today's regularly scheduled
+                SotW.
+              </p>
+              <center>
+                <button id="sotwButton" onclick="clearPopup()">
+                  Go To Song of the Week
+                </button>
+              </center>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column" id="leftColumn">
+            <img
+              id="imgSrc"
+              class="borderedImg"
+              src="images/sotw.png"
+              alt="Cover art for Song of the Week"
+              height="250"
+            />
+            <h2 id="rating">Overall Rating 8.4/10</h2>
+            <div class="column">
+              <center><h2>Listen Here</h2></center>
+              <div class="row">
+                <div class="column">
+                  <a
+                    href="https://open.spotify.com/track/3Oko2TgOzXPLlE2dbbsNKV?si=c476d6f92c9d47a2"
+                    target="_blank"
+                    ><center>
+                      <img
+                        id="spotifyIcon"
+                        class="listenIcon"
+                        src="images/spotify.png"
+                        alt="Spotify Link"
+                        height="50"
+                      /></center
+                  ></a>
+                </div>
+                <div class="column">
+                  <a
+                    href="https://www.youtube.com/watch?v=8-ImL4iU9-M"
+                    target="_blank"
+                    ><center>
+                      <img
+                        id="youtubeIcon"
+                        class="listenIcon"
+                        src="images/youtube.png"
+                        alt="Youtube Link"
+                        height="50"
+                      /></center
+                  ></a>
+                </div>
+              </div>
+            </div>
+            <div id="newFeature" hidden>
+              <h2>Rate this song!</h2>
+              <div class="slidecontainer">
+                <center>
+                  <input
+                    type="range"
+                    min="1"
+                    max="100"
+                    value="0"
+                    class="slider"
+                    id="myRange"
+                  />
+                </center>
+                <div class="row">
+                  <div class="column">
+                    <center>
+                      <p><span id="demo"></span>/10</p>
+                    </center>
+                  </div>
+                  <div class="column">
+                    <center>
+                      <button
+                        type="button"
+                        id="submitButton"
+                        onclick="addRating()"
+                      >
+                        Submit
+                      </button>
+                    </center>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br /><br />
+            <div class="button" id="emailButton">
+              <button
+                type="button"
+                id="updateButton"
+                onclick="addToNewsletter()"
+              >
+                <b>Subscribe for <br />Email Notifications</b>
+              </button>
+            </div>
+          </div>
+          <div class="column">
+            <h2>Fav Part of Song</h2>
+            <p id="favPart">
+              I was completely unfamiliar to Vampire Weekend's sound before this
+              album. I really enjoy the softness of the production and vocals,
+              I'm not sure if this is a newer sound for them or if its the same
+              old music as they've been making for many years now, but it's
+              novel for me at least.
+            </p>
+            <h2>Overall Review</h2>
+            <p id="overall">
+              My truth as a music enthusiast has been uprooted in the past
+              weeks, as I've discovered that Vampire Weekend is not another
+              2000's pop punk band as I had assumed, but a rather incredible
+              indie pop/alt rock sound. That being said, I listened to only
+              their latest album and I have extremely limited knowledge of their
+              past work. I really enjoyed this album and I now have to hear more
+              of them. I legitametely thought they were like another Imagine
+              Dragons. Anyways, I hope you make it a great week!!
+            </p>
+          </div>
+        </div>
+        <div id="celebSotW" hidden>
+          <div class="divider"><center></center></div>
+          <h2 style="font-size: 30px" id="title">Album Review</h2>
+          <h2>SOS - SZA</h2>
+          <p id="celebOverall">
+            This week I sat terrified at how a new album after a hiatus of 5
+            years could possibly compete with what I consider the gold-standard
+            of modern R&B records, "Ctrl". SZA answered on Friday with an
+            eclectic diary-like record of ranging emotions over ranging genres
+            with a tracklist nearly doubling her triple platinum sophomore
+            release. SZA diverts the path of expectations in such a grandiose
+            fashion that it is impossible to collate these projects. The
+            constant shifting of moods and genres (and the fact that she does
+            them all so masterfully) keep the hefty 23-song tracklist from
+            becoming monotonous. As expected, her off-the-shoulder songwriting
+            amazes on every track through which she is able to maintain a few
+            common motifs throughout. Her lyrics keep the album from sounding
+            like a collection of randomly produced songs, a fault to which many
+            other experimental albums fall victim. Most have thoughtlessly
+            labeled this album as R&B/Pop due to SZA's past successes in this
+            genre. I now struggle to consider SZA solely an R&B artist and find
+            it completely unjust to slap this common epithet on "SOS". This
+            album displays expansive talent in sonic styles never before heard
+            from SZA and I just hope it can sate me for the time between now and
+            her next project. Thank you.
+          </p>
+        </div>
+        <div id="celebSotW">
+          <div class="divider"><center>Celebrity Song of the Week</center></div>
+          <h2 style="font-size: 30px" id="title">
+            Omar Mejia: Levii's Jeans - Beyonce, Post Malone
+          </h2>
+          <div class="row">
+            <div class="column">
+              <h2 id="rating">Overall Rating 9.7/10</h2>
+            </div>
+            <div class="column">
+              <center><h2>Listen Here</h2></center>
+              <div class="row">
+                <div class="column">
+                  <a
+                    href="https://open.spotify.com/track/2UDARQiksl207HcSduDpov?si=4ab54b2c8c7147c4"
+                    target="_blank"
+                    ><center>
+                      <img
+                        id="spotifyIcon"
+                        class="listenIcon"
+                        src="images/spotify.png"
+                        alt="Spotify Link"
+                        height="50"
+                      /></center
+                  ></a>
+                </div>
+                <div class="column">
+                  <a
+                    href="https://www.youtube.com/watch?v=esnhbIbQHgM"
+                    target="_blank"
+                    ><center>
+                      <img
+                        id="youtubeIcon"
+                        class="listenIcon"
+                        src="images/youtube.png"
+                        alt="Youtube Link"
+                        height="50"
+                      /></center
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h2>Overall Review</h2>
+          <p id="celebOverall">
+            I instantly fell in love with this song the first time I heard it.
+            Although this song only released a few days ago, it has been stuck
+            on repeat (as well as the rest of the album). I was absolutely
+            stunned when I heard the reference to Lady Marmalade in the first
+            verse. Beyonce's albums never disappoint and are always spectacular.
+            If you haven't given Cowboy Carter a listen to, what are you waiting
+            for?!
+          </p>
+        </div>
+        <div class="divider"><center>Songs of the Week Spotify</center></div>
+        <div id="celebSotW">
+          <iframe
+            style="border-radius: 12px"
+            src="https://open.spotify.com/embed/playlist/3mHbGKwdTwzrQDlfrqfUKv?utm_source=generator"
+            width="100%"
+            height="570"
+            frameborder="0"
+            allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          ></iframe>
+        </div>
+        <div class="divider"><center>Song of the Week Archive</center></div>
+        <div id="archive">
+          <table style="width: 100%">
+            <tr>
+              <th>Week #</th>
+              <th>Title & Artist</th>
+              <th>Rating</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Desafinado - Kali Uchis</td>
+              <td>9.1/10</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Slide Around - Chance the Rapper</td>
+              <td>8.3/10</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Lisa Sawyer - Leon Bridges</td>
+              <td>9.3/10</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Look in My Eyes - Tower of Power</td>
+              <td>8.5/10</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Woo - Rihanna</td>
+              <td>7.8/10</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>United in Grief - Kendrick Lamar</td>
+              <td>9.5/10</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>BALD! - JPEGMAFIA</td>
+              <td>8.7/10</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>Unbothered - Omar Apollo</td>
+              <td>8.2/10</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>Songs for Women - Frank Ocean</td>
+              <td>9.4/10</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>Rollinem 7's - N.E.R.D</td>
+              <td>7.4/10</td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>Bound - The Ponderosa Twins Plus One</td>
+              <td>8.1/10</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>Black Magic Woman - Santana</td>
+              <td>7.9/10</td>
+            </tr>
+            <tr>
+              <td>13</td>
+              <td>Karma - Taylor Swift</td>
+              <td>7.2/10</td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>Shirt - SZA</td>
+              <td>9.3/10</td>
+            </tr>
+            <tr>
+              <td>15</td>
+              <td>Endlessly - Omar Apollo</td>
+              <td>9.5/10</td>
+            </tr>
+            <tr>
+              <td>16</td>
+              <td>No L's - Smino</td>
+              <td>8.1/10</td>
+            </tr>
+            <tr>
+              <td>17</td>
+              <td>Could You Be Loved - Bob Marley & The Wailers</td>
+              <td>8.8/10</td>
+            </tr>
+            <tr>
+              <td>18</td>
+              <td>Sweet Life - Frank Ocean</td>
+              <td>9.8/10</td>
+            </tr>
+            <tr>
+              <td>19</td>
+              <td>Boy's a Liar - PinkPantheress</td>
+              <td>7.2/10</td>
+            </tr>
+            <tr>
+              <td>20</td>
+              <td>Open Arms - SZA</td>
+              <td>9.3/10</td>
+            </tr>
+            <tr>
+              <td>21</td>
+              <td>Gone Girl - SZA</td>
+              <td>9.6/10</td>
+            </tr>
+            <tr>
+              <td>22</td>
+              <td>Django - Grant Green</td>
+              <td>7.0/10</td>
+            </tr>
+            <tr>
+              <td>23</td>
+              <td>Tombola 94 - Dina Ögon</td>
+              <td>8.2/10</td>
+            </tr>
+            <tr>
+              <td>24</td>
+              <td>Hope - Blood Orange</td>
+              <td>7.9/10</td>
+            </tr>
+            <tr>
+              <td>25</td>
+              <td>Kitty Kat - Beyonce</td>
+              <td>8.7/10</td>
+            </tr>
+            <tr>
+              <td>26</td>
+              <td>Cologne - Beabadoobee</td>
+              <td>9.4/10</td>
+            </tr>
+            <tr>
+              <td>27</td>
+              <td>Now Or Never - Kendrick Lamar</td>
+              <td>9.4/10</td>
+            </tr>
+            <tr>
+              <td>28</td>
+              <td>blazed - Ariana Grande</td>
+              <td>8.4/10</td>
+            </tr>
+            <tr>
+              <td>29</td>
+              <td>Picture in my mind - PinkPanthress</td>
+              <td>7.6/10</td>
+            </tr>
+            <tr>
+              <td>30</td>
+              <td>3 Boys - Omar Apollo</td>
+              <td>8.8/10</td>
+            </tr>
+            <tr>
+              <td>31</td>
+              <td>Sinking - Clairo</td>
+              <td>8.6/10</td>
+            </tr>
+            <tr>
+              <td>32</td>
+              <td>Riot - Hugh Masekela</td>
+              <td>7.7/10</td>
+            </tr>
+            <tr>
+              <td>33</td>
+              <td>Love Drought - Beyonce</td>
+              <td>9.3/10</td>
+            </tr>
+            <tr>
+              <td>34</td>
+              <td>BITE - Baird</td>
+              <td>8.2/10</td>
+            </tr>
+            <tr>
+              <td>35</td>
+              <td>Lydia Wears A Cross - Julia Jacklin</td>
+              <td>8.3/10</td>
+            </tr>
+            <tr>
+              <td>36</td>
+              <td>I Don't Know You - The Marías</td>
+              <td>9.1/10</td>
+            </tr>
+            <tr>
+              <td>37</td>
+              <td>SAN FRANCISCO SIDEWALK - Tiffany Day</td>
+              <td>8.8/10</td>
+            </tr>
+            <tr>
+              <td>38</td>
+              <td>Skyline To - Frank Ocean</td>
+              <td>9.4/10</td>
+            </tr>
+            <tr>
+              <td>39</td>
+              <td>Obtener un Si - Shakira</td>
+              <td>9.0/10</td>
+            </tr>
+            <tr>
+              <td>40</td>
+              <td>Barely on My Mind - The Regrettes</td>
+              <td>8.5/10</td>
+            </tr>
+            <tr>
+              <td>41</td>
+              <td>Just Shy of Sure - The Beths</td>
+              <td>9.1/10</td>
+            </tr>
+            <tr>
+              <td>42</td>
+              <td>Slater - Tyler, The Creator</td>
+              <td>8.3/10</td>
+            </tr>
+            <tr>
+              <td>43</td>
+              <td>You and I - Lady Gaga</td>
+              <td>8.8/10</td>
+            </tr>
+            <tr>
+              <td>44</td>
+              <td>Plastic Jesus - Tia Blake</td>
+              <td>9.0/10</td>
+            </tr>
+            <tr>
+              <td>45</td>
+              <td>Across the Universe - Fiona Apple</td>
+              <td>9.4/10</td>
+            </tr>
+            <tr>
+              <td>46</td>
+              <td>Popular - The Weeknd</td>
+              <td>7.5/10</td>
+            </tr>
+            <tr>
+              <td>47</td>
+              <td>Attention - Doja Cat</td>
+              <td>8.8/10</td>
+            </tr>
+            <tr>
+              <td>48</td>
+              <td>To Zion - Ms. Lauryn Hill</td>
+              <td>8.4/10</td>
+            </tr>
+            <tr>
+              <td>49</td>
+              <td>Show Me - Joey Bada$$</td>
+              <td>7.9/10</td>
+            </tr>
+            <tr>
+              <td>50</td>
+              <td>Champagne Poetry - Drake</td>
+              <td>7.7/10</td>
+            </tr>
+            <tr>
+              <td>51</td>
+              <td>Spud Infinity - Big Thief</td>
+              <td>8.5/10</td>
+            </tr>
+            <tr>
+              <td>52</td>
+              <td>Consideration - Rihanna</td>
+              <td>7.8/10</td>
+            </tr>
+            <tr>
+              <td>53</td>
+              <td>TELEKINESIS - Travis Scott</td>
+              <td>8.7/10</td>
+            </tr>
+            <tr>
+              <td>54</td>
+              <td>Will I See You Again? - Thee Sacred Souls</td>
+              <td>8.0/10</td>
+            </tr>
+            <tr>
+              <td>55</td>
+              <td>Cattails - Big Thief</td>
+              <td>9.4/10</td>
+            </tr>
+            <tr>
+              <td>56</td>
+              <td>Clean - Taylor Swift</td>
+              <td>8.8/10</td>
+            </tr>
+            <tr>
+              <td>57</td>
+              <td>Cyclades - Buck Meek</td>
+              <td>8.4/10</td>
+            </tr>
+            <tr>
+              <td>58</td>
+              <td>Ice Slippin - Omar Apollo</td>
+              <td>9.6/10</td>
+            </tr>
+            <tr>
+              <td>59</td>
+              <td>Jonny - Faye Webster</td>
+              <td>8.8/10</td>
+            </tr>
+            <tr>
+              <td>60</td>
+              <td>Gentle Heart - Nabihah Iqbal</td>
+              <td>8.1/10</td>
+            </tr>
+            <tr>
+              <td>61</td>
+              <td>Agora Hills - Doja Cat</td>
+              <td>8.1/10</td>
+            </tr>
+            <tr>
+              <td>62</td>
+              <td>Alvorada - Cartola</td>
+              <td>8.3/10</td>
+            </tr>
+            <tr>
+              <td>63</td>
+              <td>Cut Your Hair - Pavement</td>
+              <td>7.9/10</td>
+            </tr>
+            <tr>
+              <td>64</td>
+              <td>A Fond Farewell - Elliot Smith</td>
+              <td>9.9/10</td>
+            </tr>
+            <tr>
+              <td>65</td>
+              <td>Be Cool - Maggie Rogers</td>
+              <td>9.2/10</td>
+            </tr>
+            <tr>
+              <td>66</td>
+              <td>The Wind - PJ Harver</td>
+              <td>8.3/10</td>
+            </tr>
+            <tr>
+              <td>67</td>
+              <td>Balaclava - Rafaella</td>
+              <td>8.7/10</td>
+            </tr>
+            <tr>
+              <td>68</td>
+              <td>My Little Corner of the World - Yo La Tengo</td>
+              <td>9.1/10</td>
+            </tr>
+            <tr>
+              <td>69</td>
+              <td>Tired - Adele</td>
+              <td>9.7/10</td>
+            </tr>
+            <tr>
+              <td>70</td>
+              <td>MY HOUSE - Beyonce</td>
+              <td>9.2/10</td>
+            </tr>
+            <tr>
+              <td>71</td>
+              <td>FTCU - Nicki Minaj</td>
+              <td>8.8/10</td>
+            </tr>
+            <tr>
+              <td>72</td>
+              <td>PIENSO EN TU MIRÁ - ROSALÍA</td>
+              <td>9.3/10</td>
+            </tr>
+            <tr>
+              <td>73</td>
+              <td>Wood Cabin - Saint Etienne</td>
+              <td>8.6/10</td>
+            </tr>
+            <tr>
+              <td>74</td>
+              <td>French Kiss - Mapache</td>
+              <td>9.0/10</td>
+            </tr>
+            <tr>
+              <td>75</td>
+              <td>Cuero Dudes - Buck Meek</td>
+              <td>8.6/10</td>
+            </tr>
+            <tr>
+              <td>76</td>
+              <td>Lego Ring - Faye Webster</td>
+              <td>8.8/10</td>
+            </tr>
+            <tr>
+              <td>77</td>
+              <td>Dame Beso // Muevete - Kali Uchis</td>
+              <td>9.1/10</td>
+            </tr>
+            <tr>
+              <td>78</td>
+              <td>Champagne Coast - Blood Orange</td>
+              <td>9.4/10</td>
+            </tr>
+            <tr>
+              <td>79</td>
+              <td>Pitch the Baby - Cocteau Twins</td>
+              <td>8.0/10</td>
+            </tr>
+            <tr>
+              <td>80</td>
+              <td>Prove It To You - Brittany Howard</td>
+              <td>9.4/10</td>
+            </tr>
+            <tr>
+              <td>81</td>
+              <td>I Would Die 4 You - Prince</td>
+              <td>9.2/10</td>
+            </tr>
+            <tr>
+              <td>82</td>
+              <td>Illusions - Jalen Ngonda</td>
+              <td>8.6/10</td>
+            </tr>
+            <tr>
+              <td>83</td>
+              <td>He Loves Me Yeah! - Faye Webster</td>
+              <td>8.9/10</td>
+            </tr>
+            <tr>
+              <td>84</td>
+              <td>Crushed Velvet - Molly Lewis, Thee Sacred Souls</td>
+              <td>8.4/10</td>
+            </tr>
+            <tr>
+              <td>85</td>
+              <td>Got the Juice - Flo Milli</td>
+              <td>9.0/10</td>
+            </tr>
+            <tr>
+              <td>86</td>
+              <td>SPAGHETTII - Beyonce</td>
+              <td>9.2/10</td>
+            </tr>
+            <tr>
+              <td>87</td>
+              <td>Good Luck, Babe! - Chappell Roan</td>
+              <td>8.7/10</td>
+            </tr>
+          </table>
+        </div>
+        <div class="divider">
+          <center>Song of the Week Average Rating</center>
+        </div>
+        <p id="celebOverall">461.2 / 54 ~= 8.54</p>
+      </div>
+    </div>
+    <script src="background.js"></script>
+    <div id="buttonPopup" hidden>
+      <div id="overlay"></div>
+      <div id="popup">
+        <div class="popupcontent">
+          <h1>Add Email to Newsletter</h1>
+          <form
+            id="newsletterForm"
+            action="https://script.google.com/macros/s/AKfycbz9vpZTo8TU4OHXMiNtbA4GxGes1-Tl21CEuUuTmW7XebDTOlAlfk-0nEoXslG3ynjPSw/exec"
+          >
+            <label>Full Name:</label><br />
+            <input
+              name="Name"
+              placeholder="Name"
+              type="text"
+              minlength="1"
+              pattern="^[A-Za-z\s]+$"
+              required
+            /><br /><br />
+            <label>Email:</label><br />
+            <input
+              name="Email"
+              placeholder="Email"
+              type="text"
+              minlength="1"
+              pattern="^([A-Za-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$"
+              required
+            /><br /><br />
+            <input type="submit" />
+            <input type="reset" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
