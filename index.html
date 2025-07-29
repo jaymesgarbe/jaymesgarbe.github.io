@@ -375,6 +375,14 @@
 
     <script>
         const API_BASE_URL = 'https://duovr-server-320457537138.us-west1.run.app';
+        
+        // Get authentication token - you'll need to implement this
+        async function getAuthToken() {
+            // For now, we'll show instructions to the user
+            const token = prompt('Please enter your access token. Get it by running: gcloud auth print-access-token');
+            return token;
+        }
+        
         const dropZone = document.getElementById('dropZone');
         const fileInput = document.getElementById('fileInput');
         const fileInfo = document.getElementById('fileInfo');
@@ -468,6 +476,13 @@
             dropZone.classList.add('uploading');
             
             try {
+                // Get authentication token
+                const token = await getAuthToken();
+                if (!token) {
+                    showError('Authentication token required');
+                    return;
+                }
+
                 // Create FormData for file upload
                 const formData = new FormData();
                 formData.append('file', file);
@@ -497,6 +512,7 @@
                 });
 
                 xhr.open('POST', `${API_BASE_URL}/files/upload`);
+                xhr.setRequestHeader('Authorization', `Bearer ${token}`);
                 xhr.send(formData);
 
             } catch (error) {
