@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DuoVR - 360° Video Upload</title>
+    <title>DuoVR - Direct 360° Video Upload</title>
     <style>
         * {
             margin: 0;
@@ -288,6 +288,17 @@
             color: white;
         }
 
+        .direct-upload-badge {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
         @media (max-width: 768px) {
             .upload-container {
                 padding: 30px 20px;
@@ -326,7 +337,8 @@
 <body>
     <div class="upload-container">
         <div class="logo">DuoVR</div>
-        <div class="subtitle">Upload your 360° and 180° videos to the cloud</div>
+        <div class="subtitle">Upload your 360° and 180° videos directly to cloud storage</div>
+        <div class="direct-upload-badge">🚀 Direct Upload - No Server Limits</div>
         
         <div class="drop-zone" id="dropZone">
             <div class="drop-zone-content">
@@ -337,12 +349,13 @@
                 </div>
                 
                 <div class="drop-text">Drop your videos here</div>
-                <div class="drop-subtext">or click to browse files</div>
+                <div class="drop-subtext">Files upload directly to Google Cloud Storage</div>
                 
                 <div class="file-types">
                     <span class="file-type">360° Video</span>
                     <span class="file-type">180° Video</span>
                     <span class="file-type">MP4, MOV, AVI</span>
+                    <span class="file-type">Up to 4GB</span>
                 </div>
                 
                 <button class="browse-button" onclick="document.getElementById('fileInput').click()">
@@ -374,14 +387,8 @@
     </div>
 
     <script>
-        const API_BASE_URL = 'https://duovr-server-320457537138.us-west1.run.app';
-        
-        // Get authentication token - you'll need to implement this
-        async function getAuthToken() {
-            // For now, we'll show instructions to the user
-            const token = prompt('Please enter your access token. Get it by running: gcloud auth print-access-token');
-            return token;
-        }
+        // Use proxy for getting upload URLs, but upload directly to Cloud Storage
+        const API_BASE_URL = 'http://localhost:8080';
         
         const dropZone = document.getElementById('dropZone');
         const fileInput = document.getElementById('fileInput');
@@ -440,6 +447,13 @@
                 return;
             }
 
+            // Check file size (4GB limit)
+            const maxSize = 4 * 1024 * 1024 * 1024; // 4GB
+            if (file.size > maxSize) {
+                showError('File too large. Maximum size is 4GB for direct uploads');
+                return;
+            }
+
             showFileInfo(file);
             uploadFile(file);
         }
@@ -451,6 +465,7 @@
 
         function showFileInfo(file) {
             const sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
+            const sizeInGB = (file.size / (1024 * 1024 * 1024)).toFixed(2);
             
             fileDetails.innerHTML = `
                 <div class="file-detail">
@@ -459,7 +474,7 @@
                 </div>
                 <div class="file-detail">
                     <span>Size:</span>
-                    <span>${sizeInMB} MB</span>
+                    <span>${sizeInGB > 1 ? sizeInGB + ' GB' : sizeInMB + ' MB'}</span>
                 </div>
                 <div class="file-detail">
                     <span>Type:</span>
@@ -476,47 +491,59 @@
             dropZone.classList.add('uploading');
             
             try {
-                // Get authentication token
-                const token = await getAuthToken();
-                if (!token) {
-                    showError('Authentication token required');
-                    return;
+                console.log('🔄 Getting signed upload URL...');
+                
+                // Step 1: Get signed upload URL from your server (via proxy)
+                const uploadUrlResponse = await fetch(`${API_BASE_URL}/files/generate-upload-url`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        fileName: file.name,
+                        fileType: file.type,
+                        fileSize: file.size
+                    })
+                });
+
+                if (!uploadUrlResponse.ok) {
+                    const errorData = await uploadUrlResponse.json();
+                    throw new Error(errorData.error || 'Failed to get upload URL');
                 }
 
-                // Create FormData for file upload
-                const formData = new FormData();
-                formData.append('file', file);
+                const uploadData = await uploadUrlResponse.json();
+                console.log('✅ Got signed upload URL');
 
-                // Upload with progress tracking
-                const xhr = new XMLHttpRequest();
+                // Step 2: Upload directly to Google Cloud Storage
+                console.log('📤 Uploading to Cloud Storage...');
                 
-                xhr.upload.addEventListener('progress', (e) => {
-                    if (e.lengthComputable) {
-                        const percentComplete = (e.loaded / e.total) * 100;
-                        updateProgress(percentComplete);
+                const uploadResponse = await fetch(uploadData.uploadUrl, {
+                    method: 'PUT',
+                    body: file,
+                    headers: {
+                        'Content-Type': file.type,
+                    },
+                    // Track upload progress
+                });
+
+                if (!uploadResponse.ok) {
+                    throw new Error(`Upload failed: ${uploadResponse.status} ${uploadResponse.statusText}`);
+                }
+
+                console.log('✅ Upload completed successfully');
+                
+                showSuccess({
+                    file: {
+                        id: uploadData.fileId,
+                        fileName: file.name,
+                        path: uploadData.destination,
+                        size: file.size,
+                        uploadUrl: uploadData.uploadUrl
                     }
                 });
-
-                xhr.addEventListener('load', () => {
-                    if (xhr.status === 200) {
-                        const response = JSON.parse(xhr.responseText);
-                        showSuccess(response);
-                    } else {
-                        const errorResponse = JSON.parse(xhr.responseText);
-                        showError(errorResponse.error || 'Upload failed');
-                    }
-                });
-
-                xhr.addEventListener('error', () => {
-                    showError('Network error occurred during upload');
-                });
-
-                xhr.open('POST', `${API_BASE_URL}/files/upload`);
-                xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-                xhr.send(formData);
 
             } catch (error) {
-                console.error('Upload error:', error);
+                console.error('❌ Upload error:', error);
                 showError('Upload failed: ' + error.message);
             }
         }
@@ -532,8 +559,8 @@
             resultIcon.textContent = '✅';
             resultText.textContent = 'Upload Successful!';
             resultDetails.innerHTML = `
-                File uploaded successfully!<br>
-                <strong>File ID:</strong> ${response.file.id}<br>
+                File uploaded successfully to Google Cloud Storage!<br>
+                <strong>File:</strong> ${response.file.fileName}<br>
                 <strong>Path:</strong> ${response.file.path}
             `;
             
