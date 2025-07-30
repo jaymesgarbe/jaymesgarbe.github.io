@@ -387,7 +387,7 @@
     </div>
 
     <script>
-        // Use proxy for getting upload URLs, but upload directly to Cloud Storage
+        // Direct access to Cloud Run service (no proxy needed)
         const API_BASE_URL = 'https://duovr-server-320457537138.us-west1.run.app';
         
         const dropZone = document.getElementById('dropZone');
@@ -523,10 +523,11 @@
                     headers: {
                         'Content-Type': file.type,
                     },
-                    // Track upload progress
                 });
 
                 if (!uploadResponse.ok) {
+                    const errorText = await uploadResponse.text();
+                    console.error('Upload response:', uploadResponse.status, errorText);
                     throw new Error(`Upload failed: ${uploadResponse.status} ${uploadResponse.statusText}`);
                 }
 
