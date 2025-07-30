@@ -185,6 +185,134 @@
             display: none;
         }
 
+        .file-info {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+            display: none;
+        }
+
+        .file-info h4 {
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .file-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .rename-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 2px dashed #ddd;
+        }
+
+        .rename-label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .rename-input-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .rename-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .rename-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .file-extension {
+            padding: 10px 12px;
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #666;
+            font-weight: 600;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .rename-hint {
+            font-size: 12px;
+            color: #888;
+            font-style: italic;
+        }
+
+        .upload-controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .upload-button {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .upload-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+        }
+
+        .upload-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .cancel-button {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cancel-button:hover {
+            background: #667eea;
+            color: white;
+        }
+
         .upload-progress {
             margin-top: 30px;
             display: none;
@@ -247,29 +375,6 @@
             opacity: 0.8;
         }
 
-        .file-info {
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 20px;
-            text-align: left;
-            display: none;
-        }
-
-        .file-info h4 {
-            color: #333;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-
-        .file-detail {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 4px;
-            font-size: 14px;
-            color: #666;
-        }
-
         .reset-button {
             background: rgba(102, 126, 234, 0.1);
             color: #667eea;
@@ -321,6 +426,10 @@
                 font-size: 12px;
                 padding: 6px 12px;
             }
+
+            .upload-controls {
+                flex-direction: column;
+            }
         }
 
         .pulse {
@@ -355,7 +464,7 @@
                     <span class="file-type">360° Video</span>
                     <span class="file-type">180° Video</span>
                     <span class="file-type">MP4, MOV, AVI</span>
-                    <span class="file-type">Up to 4GB</span>
+                    <span class="file-type">Up to 500GB</span>
                 </div>
                 
                 <button class="browse-button" onclick="document.getElementById('fileInput').click()">
@@ -367,8 +476,26 @@
         <input type="file" id="fileInput" class="file-input" accept="video/mp4,video/quicktime,video/x-msvideo" multiple>
 
         <div class="file-info" id="fileInfo">
-            <h4>Selected File:</h4>
+            <h4>📁 Selected File</h4>
             <div id="fileDetails"></div>
+            
+            <div class="rename-section">
+                <label class="rename-label">📝 Rename File (Optional)</label>
+                <div class="rename-input-container">
+                    <input type="text" id="renameInput" class="rename-input" placeholder="Enter new filename...">
+                    <div class="file-extension" id="fileExtension">.mp4</div>
+                </div>
+                <div class="rename-hint">Leave empty to keep original name. Only letters, numbers, hyphens, and underscores allowed.</div>
+                
+                <div class="upload-controls">
+                    <button class="upload-button" id="uploadButton" onclick="startUpload()">
+                        🚀 Upload Video
+                    </button>
+                    <button class="cancel-button" onclick="resetUpload()">
+                        ❌ Cancel
+                    </button>
+                </div>
+            </div>
         </div>
 
         <div class="upload-progress" id="uploadProgress">
@@ -394,6 +521,9 @@
         const fileInput = document.getElementById('fileInput');
         const fileInfo = document.getElementById('fileInfo');
         const fileDetails = document.getElementById('fileDetails');
+        const renameInput = document.getElementById('renameInput');
+        const fileExtension = document.getElementById('fileExtension');
+        const uploadButton = document.getElementById('uploadButton');
         const uploadProgress = document.getElementById('uploadProgress');
         const progressFill = document.getElementById('progressFill');
         const progressText = document.getElementById('progressText');
@@ -401,6 +531,10 @@
         const resultIcon = document.getElementById('resultIcon');
         const resultText = document.getElementById('resultText');
         const resultDetails = document.getElementById('resultDetails');
+
+        let selectedFile = null;
+        let originalFileName = '';
+        let originalExtension = '';
 
         // Drag and drop functionality
         dropZone.addEventListener('click', () => fileInput.click());
@@ -428,6 +562,18 @@
             handleFiles(files);
         });
 
+        // Validate rename input
+        renameInput.addEventListener('input', (e) => {
+            let value = e.target.value;
+            // Remove invalid characters and spaces
+            value = value.replace(/[^a-zA-Z0-9\-_]/g, '');
+            // Limit length
+            if (value.length > 50) {
+                value = value.substring(0, 50);
+            }
+            e.target.value = value;
+        });
+
         function handleFiles(files) {
             if (files.length === 0) return;
 
@@ -447,15 +593,21 @@
                 return;
             }
 
-            // Check file size (4GB limit)
-            const maxSize = 4 * 1024 * 1024 * 1024; // 4GB
+            // Check file size (500GB limit)
+            const maxSize = 500 * 1024 * 1024 * 1024; // 500GB
             if (file.size > maxSize) {
-                showError('File too large. Maximum size is 4GB for direct uploads');
+                showError('File too large. Maximum size is 500GB for direct uploads');
                 return;
             }
 
+            selectedFile = file;
+            originalFileName = file.name;
+            
+            // Extract extension
+            const lastDotIndex = file.name.lastIndexOf('.');
+            originalExtension = lastDotIndex !== -1 ? file.name.substring(lastDotIndex) : '';
+            
             showFileInfo(file);
-            uploadFile(file);
         }
 
         function isValidVideoFile(file) {
@@ -467,42 +619,80 @@
             const sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
             const sizeInGB = (file.size / (1024 * 1024 * 1024)).toFixed(2);
             
+            // Extract filename without extension for the rename input placeholder
+            const nameWithoutExt = originalFileName.replace(/\.[^/.]+$/, "");
+            
             fileDetails.innerHTML = `
                 <div class="file-detail">
-                    <span>Name:</span>
+                    <span><strong>Original Name:</strong></span>
                     <span>${file.name}</span>
                 </div>
                 <div class="file-detail">
-                    <span>Size:</span>
+                    <span><strong>Size:</strong></span>
                     <span>${sizeInGB > 1 ? sizeInGB + ' GB' : sizeInMB + ' MB'}</span>
                 </div>
                 <div class="file-detail">
-                    <span>Type:</span>
+                    <span><strong>Type:</strong></span>
                     <span>${file.type}</span>
                 </div>
             `;
             
+            // Set up rename section
+            renameInput.placeholder = `e.g., ${nameWithoutExt.replace(/[^a-zA-Z0-9\-_]/g, '')}`;
+            renameInput.value = '';
+            fileExtension.textContent = originalExtension;
+            
             fileInfo.style.display = 'block';
         }
 
-        async function uploadFile(file) {
+        function getFinalFileName() {
+            const customName = renameInput.value.trim();
+            
+            if (customName) {
+                // Use custom name with original extension
+                return customName + originalExtension;
+            } else {
+                // Use original filename
+                return originalFileName;
+            }
+        }
+
+        async function startUpload() {
+            if (!selectedFile) {
+                showError('No file selected');
+                return;
+            }
+
+            const finalFileName = getFinalFileName();
+            
+            // Validate final filename
+            if (finalFileName.length > 100) {
+                showError('Filename too long. Please use a shorter name.');
+                return;
+            }
+
             // Show upload progress
             uploadProgress.style.display = 'block';
             dropZone.classList.add('uploading');
+            uploadButton.disabled = true;
+            
+            // Hide file info section during upload
+            fileInfo.style.display = 'none';
             
             try {
                 console.log('🔄 Getting signed upload URL...');
+                console.log('📝 Final filename:', finalFileName);
                 
-                // Step 1: Get signed upload URL from your server (via proxy)
+                // Step 1: Get signed upload URL from your server
                 const uploadUrlResponse = await fetch(`${API_BASE_URL}/files/generate-upload-url`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        fileName: file.name,
-                        fileType: file.type,
-                        fileSize: file.size
+                        fileName: finalFileName,
+                        fileType: selectedFile.type,
+                        fileSize: selectedFile.size
                     })
                 });
 
@@ -519,9 +709,9 @@
                 
                 const uploadResponse = await fetch(uploadData.uploadUrl, {
                     method: 'PUT',
-                    body: file,
+                    body: selectedFile,
                     headers: {
-                        'Content-Type': file.type,
+                        'Content-Type': selectedFile.type,
                     },
                 });
 
@@ -536,9 +726,10 @@
                 showSuccess({
                     file: {
                         id: uploadData.fileId,
-                        fileName: file.name,
+                        fileName: finalFileName,
+                        originalName: originalFileName,
                         path: uploadData.destination,
-                        size: file.size,
+                        size: selectedFile.size,
                         uploadUrl: uploadData.uploadUrl
                     }
                 });
@@ -557,12 +748,15 @@
         function showSuccess(response) {
             hideProgress();
             
+            const wasRenamed = response.file.fileName !== response.file.originalName;
+            
             resultIcon.textContent = '✅';
             resultText.textContent = 'Upload Successful!';
             resultDetails.innerHTML = `
                 File uploaded successfully to Google Cloud Storage!<br>
-                <strong>File:</strong> ${response.file.fileName}<br>
-                <strong>Path:</strong> ${response.file.path}
+                <strong>Uploaded as:</strong> ${response.file.fileName}<br>
+                ${wasRenamed ? `<strong>Original name:</strong> ${response.file.originalName}<br>` : ''}
+                <strong>Storage path:</strong> ${response.file.path}
             `;
             
             uploadResult.className = 'upload-result upload-success';
@@ -578,11 +772,17 @@
             
             uploadResult.className = 'upload-result upload-error';
             uploadResult.style.display = 'block';
+            
+            // Re-show file info on error
+            if (selectedFile) {
+                fileInfo.style.display = 'block';
+            }
         }
 
         function hideProgress() {
             uploadProgress.style.display = 'none';
             dropZone.classList.remove('uploading');
+            uploadButton.disabled = false;
         }
 
         function resetUpload() {
@@ -592,6 +792,13 @@
             uploadProgress.style.display = 'none';
             uploadResult.style.display = 'none';
             dropZone.classList.remove('uploading');
+            
+            // Reset form data
+            selectedFile = null;
+            originalFileName = '';
+            originalExtension = '';
+            renameInput.value = '';
+            uploadButton.disabled = false;
             
             // Reset progress
             progressFill.style.width = '0%';
